@@ -6,7 +6,7 @@
         private Libro[] arrayLibros;
         private Libro[] arraylibrosPrestados;
         private int nLibrosPrestados;
-        
+
         /* constructor */
         public Biblioteca(int numLibros, int numUsuarios, Usuario[] arrayUsuarios, Libro[] arrayLibros, 
                 int nLibrosPrestados, Libro[] arraylibrosPrestados) {
@@ -50,10 +50,47 @@
             this.arrayLibros = arrayLibros;
         }
 
-        // cambio
-        // gfrhggjhjh
-        // hffhhfue
-        // fhje
-        // ffhhgj
+      
+
+          private boolean checkeadorArraysUsuarios(String nombreUsuario) {
+        boolean noExiste = true;
+        for (int i = 0; i < this.arrayUsuarios.length && noExiste; i++) {
+            if (arrayUsuarios[i].getNombreUsuario().equals(nombreUsuario)) {
+                noExiste = false;
+
+            }
+        }
+
+        return noExiste;
+    }
+
+
+private boolean checkeadorArraysLibrosPrestados(String isbn) {
+        boolean noExiste = true;
+        for (int i = 0; i < this.arraylibrosPrestados.length && noExiste; i++) {
+            if (arraylibrosPrestados[i].getIsbn().equals(isbn)) {
+                noExiste = false;
+
+            }
+        }
+
+        return noExiste;
+
+    }
+
+    
+private boolean checkeadorArraysLibros(String isbn) {
+        boolean noExiste = true;
+        for (int i = 0; i < this.arrayLibros.length && noExiste; i++) {
+            if (arrayLibros[i] != null && arrayLibros[i].getIsbn().equals(isbn)) {
+                noExiste = false;
+
+            }
+        }
+
+        return noExiste;
+
+    }
+
     }
 
