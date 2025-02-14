@@ -126,16 +126,16 @@ public class App {
 
         // Usuarios
         Usuario[] arrayUsuarios = new Usuario[15];
-        Usuario daniel = new Usuario("dani55", "1234", "13");
-        Usuario elena = new Usuario("elena55", "1111", "13");
+        Usuario daniel = new Usuario("dani55", "1234", "12345678H");
+       // Usuario elena = new Usuario("elena55", "1111", "13");
 
         Biblioteca biblioteca = new Biblioteca(0, 0, arrayUsuarios, arrayLibros, 0, arrayLibrosPrestados);
 
         // Libro
-        Libro don_Quijote = new Libro("Don_Quijote", "Miguel de Cervantes", "Comedia", "12");
-        Libro el_Conde_Monte_Cristo = new Libro("El Conde de Montecristo", "Alexandre Dumas", "Aventura", "13");
-        Libro crimen_y_Castigo = new Libro("Crimen y Castigo", "Fiódor Dostoievski", "Drama psicológico", "14");
-        Libro mil_novecientos_ochenta_y_cuatro = new Libro("1984", "George Orwell", "Ciencia ficción distópica", "15");
+        Libro don_Quijote = new Libro("Don_Quijote", "Miguel de Cervantes", "Comedia");
+        Libro el_Conde_Monte_Cristo = new Libro("El Conde de Montecristo", "Alexandre Dumas", "Aventura");
+        Libro crimen_y_Castigo = new Libro("Crimen y Castigo", "Fiódor Dostoievski", "Drama psicológico");
+        Libro mil_novecientos_ochenta_y_cuatro = new Libro("1984", "George Orwell", "Ciencia ficción distópica");
 
 
 
@@ -231,7 +231,7 @@ public class App {
 
                                 System.out.println("Has elegido Agregar libros");
 
-                                
+
                                 break;
                             case 2:
                                 System.out.println("Has elegido eliminar libros");

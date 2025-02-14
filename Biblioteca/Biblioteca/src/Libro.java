@@ -11,28 +11,26 @@
 public class Libro {
 
     private String titulo;
-    private String  autor;
+    private String autor;
     private String categoria;
-      private String isbn;
-    
-      public Libro(String titulo, String autor, String categoria, String isbn) {
+    private int isbn;
+    private static int contadorIsbn;
+
+    public Libro(String titulo, String autor, String categoria) {
         this.titulo = titulo;
         this.autor = autor;
         this.categoria = categoria;
-        this.isbn = isbn;
+        this.isbn = contadorIsbn;
+        contadorIsbn++;
+
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public String getIsbn() {
+    public int getIsbn() {
         return isbn;
     }
-
-
-
-
-    
 
 }
