@@ -13,4 +13,13 @@ public class Libro {
     private String titulo;
     private String  autor;
     private String categoria;
+      private String isbn;
+    
+      public Libro(String titulo, String autor, String categoria, String isbn) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.categoria = categoria;
+        this.isbn = isbn;
+    }
+
 }

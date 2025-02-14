@@ -115,7 +115,25 @@ public class App {
 
 
 
+        // Creacion de objetos
 
+        // Arrays con limite 15
+        Libro[] arrayLibros = new Libro[15];
+        Libro[] arrayLibrosPrestados = new Libro[15];
+        Libro[] arrayLibrosTomados = new Libro[15];
+
+        // Usuarios
+        Usuario[] arrayUsuarios = new Usuario[15];
+        Usuario daniel = new Usuario("dani55", "1234", "13");
+        Usuario elena = new Usuario("elena55", "1111", "13");
+
+        Biblioteca biblioteca = new Biblioteca(0, 0, arrayUsuarios, arrayLibros, 0, arrayLibrosPrestados);
+
+        // Libro
+        Libro don_Quijote = new Libro("Don_Quijote", "Miguel de Cervantes", "Comedia", "12");
+        Libro el_Conde_Monte_Cristo = new Libro("El Conde de Montecristo", "Alexandre Dumas", "Aventura", "13");
+        Libro crimen_y_Castigo = new Libro("Crimen y Castigo", "Fiódor Dostoievski", "Drama psicológico", "14");
+        Libro mil_novecientos_ochenta_y_cuatro = new Libro("1984", "George Orwell", "Ciencia ficción distópica", "15");
 
 
 

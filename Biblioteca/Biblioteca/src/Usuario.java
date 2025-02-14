@@ -11,5 +11,12 @@ public class Usuario {
 
     private String nombreUsuario;
     private String contrasenia;
+    private String dni;
+    public Usuario(String nombreUsuario, String contrasenia, String dni) {
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenia = contrasenia;
+        this.dni = dni;
+    }
 
+    
 }
