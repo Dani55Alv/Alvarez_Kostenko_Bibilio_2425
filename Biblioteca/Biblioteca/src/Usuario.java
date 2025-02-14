@@ -1,5 +1,4 @@
 
-
 /**
  * Es la clase donde se almacena las caracteristicas del usuario.
  * 
@@ -9,7 +8,7 @@
  * 
  */
 public class Usuario {
- 
+
     private String nombreUsuario;
     private String contrasenia;
 
