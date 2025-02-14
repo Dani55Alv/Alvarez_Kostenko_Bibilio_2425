@@ -17,6 +17,15 @@ public class Usuario {
         this.contrasenia = contrasenia;
         this.dni = dni;
     }
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+    public String getContrasenia() {
+        return contrasenia;
+    }
+    public String getDni() {
+        return dni;
+    }
 
     
 }

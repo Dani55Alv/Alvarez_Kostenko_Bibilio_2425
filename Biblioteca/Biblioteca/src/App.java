@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class App {
 
 
@@ -137,7 +139,211 @@ public class App {
 
 
 
+ // Programa
+        String libroIsbn = "";
+        boolean noVolverIniciarSesion = true;
+        Usuario sesionUsuario = null;
+        do {
+            login();
 
+            Scanner sc = new Scanner(System.in);
+            sesionUsuario = null;
+
+            boolean logInIncorrecto = true;
+
+            do {
+                String logIn = sc.nextLine().toLowerCase();
+
+                switch (logIn) {
+                    case "usuario":
+                        logInIncorrecto = false;
+                        System.out.println("Vas a iniciar sesión como usuario");
+
+                        break;
+                    case "administrador":
+                        logInIncorrecto = false;
+                        System.out.println("Vas a iniciar sesión como administrador");
+
+                        break;
+                    default:
+                        System.out.println("No permitido, intentalo otra vez");
+                        System.out.println("Tienes que introducir usuario o administrador");
+
+                        break;
+                }
+            } while (logInIncorrecto);
+
+            // No se crean usuarios nuevos sino que se inician ya existentes por ahora
+            int posPassword = -1;
+            boolean usuarioNoEcontrado;
+            boolean contraseniaIncorrecta;
+
+            do {
+                usuarioNoEcontrado = true;
+                contraseniaIncorrecta = true;
+
+                System.out.println("Introduce un nombre de usuario");
+                String nameUser = sc.nextLine();
+                System.out.println("Introduce una contraseña");
+                String passwordUser = sc.nextLine();
+                boolean usuarioEncontrado = true;
+                for (int i = 0; i < biblioteca.getNumUsuarios() && usuarioEncontrado; i++) {
+                    if (biblioteca.getArrayUsuarios()[i].getNombreUsuario().equals(nameUser)) {
+                        usuarioNoEcontrado = false;
+                        posPassword = i;
+
+                        usuarioEncontrado = false;
+                    }
+                }
+
+                if (!usuarioNoEcontrado) {
+                    System.out.println("Usuario " + nameUser + " encontrado con éxito");
+
+                    // IMporatnate //Quizas borrar.
+                    // Asignamos el préstamo al usuario que acaba de iniciar sesión
+                    sesionUsuario = biblioteca.getArrayUsuarios()[posPassword];
+
+                    if (biblioteca.getArrayUsuarios()[posPassword].getContrasenia().equals(passwordUser)) {
+                        contraseniaIncorrecta = false;
+                        System.out.println("Contraseña correcta, inicio de sesión exitoso.");
+                    } else {
+                        System.out.println("Contraseña incorrecta, intentalo otra vez.");
+                    }
+                } else {
+                    System.out.println("Usuario " + nameUser + " no encontrado, intentalo otra vez");
+                }
+
+            } while (usuarioNoEcontrado || contraseniaIncorrecta);
+
+            int opcion;
+
+            boolean salir = true;
+            do {
+                menu();
+                opcion = sc.nextInt();
+                switch (opcion) {
+                    case 1:
+                        System.out.println("Has elegido gestion de libros");
+                        submenu1();
+                        opcion = sc.nextInt();
+                        switch (opcion) {
+                            case 1:
+
+                                System.out.println("Has elegido Agregar libros");
+                                break;
+                            case 2:
+                                System.out.println("Has elegido eliminar libros");
+
+                                break;
+                            case 3:
+                                System.out.println("Has elegido buscar libros ya sea por titulo, categoria o autor");
+
+                                break;
+
+                            case 4:
+                                System.out.println("Has elegido mostrar todos los libros disponibles");
+                                break;
+
+                            default:
+                                break;
+                        }
+                        break;
+                    case 2:
+                        System.out.println("Has elegido gestion de usuarios");
+                        submenu2();
+                        opcion = sc.nextInt();
+
+                        switch (opcion) {
+                            case 1:
+                                System.out.println("Has elegido registrar nuevo usuario ");
+                                break;
+                            case 2:
+                                System.out.println("Has elegido consultar informacion de usuarios registrados ");
+                                break;
+
+                            default:
+                                break;
+                        }
+                        break;
+
+                    case 3:
+                        System.out.println("Has elegido gestion de préstamos");
+
+                        submenu3();
+                        opcion = sc.nextInt();
+
+                        switch (opcion) {
+                            case 1:
+                                System.out.println("Has elegido realizar prestamo de libro ");
+
+
+
+                                break;
+                            case 2:
+                                System.out.println("Has elegido devolver libros prestados ");
+
+                                break;
+                            case 3:
+                                System.out.println("Has elegido mostrar libros actualmente prestados ");
+                                break;
+
+                            default:
+                                break;
+                        }
+                        break;
+                    case 4:
+                        System.out.println("Has elegido las estadisticas de la biblioteca");
+                        submenu4();
+                        opcion = sc.nextInt();
+
+                        switch (opcion) {
+                            case 1:
+                                System.out.println("Has elegido numeros de prestamos totales y activos");
+
+                                break;
+                            case 2:
+                                System.out.println("Has elegido listar los libros mas prestados ");
+
+                                break;
+                            case 3:
+                                System.out.println("Has elegido mostrar que usuario tiene más préstamos activos");
+                              
+                                break;
+                            default:
+                                break;
+                        }
+
+                        break;
+
+                    case 5:
+                        System.out.println("Has elegido: Salir de la cuenta");
+
+                        salir = false;
+                        break;
+                    default:
+                        System.out.println("Porfavor, ingresa una de la opciones que se muestran en el menu");
+                        System.out.println("Intentelo otra vez");
+
+                        break;
+                }
+
+            } while (salir);
+
+            System.out.println("Has salido de la cuenta");
+
+            System.out.println("¿Quieres volver a iniciar sesion?");
+            System.out.println("si/no");
+            // Limpiando buffer;
+            sc.nextLine();
+            String cambiarSesion = sc.nextLine().toLowerCase();
+
+            if (cambiarSesion.equals("no")) {
+                noVolverIniciarSesion = false;
+            }
+
+        } while (noVolverIniciarSesion);
+
+        System.out.println("Has salido del programa");
 
       
 
