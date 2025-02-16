@@ -26,6 +26,15 @@ public class Usuario {
     public String getDni() {
         return dni;
     }
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
 
     
 }

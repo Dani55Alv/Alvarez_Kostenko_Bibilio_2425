@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class App {
 
-
     public static void login() {
 
         System.out.println(" _______________________________________________");
@@ -115,8 +114,6 @@ public class App {
 
     public static void main(String[] args) {
 
-
-
         // Creacion de objetos
 
         // Arrays con limite 15
@@ -127,19 +124,23 @@ public class App {
         // Usuarios
         Usuario[] arrayUsuarios = new Usuario[15];
         Usuario daniel = new Usuario("dani55", "1234", "12345678H");
-       // Usuario elena = new Usuario("elena55", "1111", "13");
+        // Usuario elena = new Usuario("elena55", "1111", "13");
 
         Biblioteca biblioteca = new Biblioteca(0, 0, arrayUsuarios, arrayLibros, 0, arrayLibrosPrestados);
 
         // Libro
-        Libro don_Quijote = new Libro("Don_Quijote", "Miguel de Cervantes", "Comedia");
-        Libro el_Conde_Monte_Cristo = new Libro("El Conde de Montecristo", "Alexandre Dumas", "Aventura");
-        Libro crimen_y_Castigo = new Libro("Crimen y Castigo", "Fiódor Dostoievski", "Drama psicológico");
-        Libro mil_novecientos_ochenta_y_cuatro = new Libro("1984", "George Orwell", "Ciencia ficción distópica");
+        // Libro don_Quijote = new Libro("Don_Quijote", "Miguel de Cervantes",
+        // "Comedia");
+        // Libro el_Conde_Monte_Cristo = new Libro("El Conde de Montecristo", "Alexandre
+        // Dumas", "Aventura");
+        // Libro crimen_y_Castigo = new Libro("Crimen y Castigo", "Fiódor Dostoievski",
+        // "Drama psicológico");
+        // Libro mil_novecientos_ochenta_y_cuatro = new Libro("1984", "George Orwell",
+        // "Ciencia ficción distópica");
 
+        biblioteca.agregarUsuario(daniel);
 
-
- // Programa
+        // Programa
         String libroIsbn = "";
         boolean noVolverIniciarSesion = true;
         Usuario sesionUsuario = null;
@@ -230,20 +231,36 @@ public class App {
                             case 1:
 
                                 System.out.println("Has elegido Agregar libros");
-
+                                sc.nextLine(); // limpiar buffer
+                                System.out.println("Introduce título a registrar");
+                                String titulo = sc.nextLine();
+                                System.out.println("Introduce autor a registrar");
+                                String autor = sc.nextLine();
+                                System.out.println("Introduce categoría a registrar");
+                                String categoria = sc.nextLine();
+                                biblioteca.AgregarLibroNuevo(titulo, autor, categoria);
 
                                 break;
                             case 2:
                                 System.out.println("Has elegido eliminar libros");
+                                System.out.println("Introduce un isbn para eliminar un libro");
+                                sc.nextLine(); // limpiar buffer
+                                int isbnAeliminar= sc.nextInt();
+                               biblioteca.eliminarLibro(isbnAeliminar);
+
 
                                 break;
                             case 3:
-                                System.out.println("Has elegido buscar libros ya sea por titulo, categoria o autor");
+                                System.out.println("Has elegido buscar libro por isbn ");
+                                sc.nextLine(); // limpiar el buffer
+                                int isbn_introducido = sc.nextInt();
+                                biblioteca.buscarlibro(isbn_introducido);
 
                                 break;
 
                             case 4:
                                 System.out.println("Has elegido mostrar todos los libros disponibles");
+                                biblioteca.mostrarLibrosDisponibles();
                                 break;
 
                             default:
@@ -258,9 +275,22 @@ public class App {
                         switch (opcion) {
                             case 1:
                                 System.out.println("Has elegido registrar nuevo usuario ");
+
+                                System.out.println("Has elegido registrar nuevo usuario ");
+                                System.out.println("Introduce el nombre de usuario a registrar");
+                                sc.nextLine(); // limpiar el buffer
+                                String nombreUsuario = sc.nextLine();
+                                System.out.println("Introduce el dni de usuario a registrar");
+                                String dni = sc.nextLine();
+                                System.out.println("Introduce la contraseña de usuario a registrar");
+                                String contrasenia = sc.nextLine();
+                                biblioteca.registrarUsuario(nombreUsuario, dni, contrasenia);
+
                                 break;
                             case 2:
                                 System.out.println("Has elegido consultar informacion de usuarios registrados ");
+                                biblioteca.mostrarInfUsuarioRegistrado();
+
                                 break;
 
                             default:
@@ -277,8 +307,6 @@ public class App {
                         switch (opcion) {
                             case 1:
                                 System.out.println("Has elegido realizar prestamo de libro ");
-
-
 
                                 break;
                             case 2:
@@ -309,7 +337,7 @@ public class App {
                                 break;
                             case 3:
                                 System.out.println("Has elegido mostrar que usuario tiene más préstamos activos");
-                              
+
                                 break;
                             default:
                                 break;
@@ -346,9 +374,6 @@ public class App {
         } while (noVolverIniciarSesion);
 
         System.out.println("Has salido del programa");
-
-      
-
 
     }
 }
