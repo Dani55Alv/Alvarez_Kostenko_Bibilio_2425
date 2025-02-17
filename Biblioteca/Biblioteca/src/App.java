@@ -119,14 +119,14 @@ public class App {
         // Arrays con limite 15
         Libro[] arrayLibros = new Libro[15];
         Libro[] arrayLibrosPrestados = new Libro[15];
-        Libro[] arrayLibrosTomados = new Libro[15];
 
         // Usuarios
         Usuario[] arrayUsuarios = new Usuario[15];
         Usuario daniel = new Usuario("dani55", "1234", "12345678H");
         // Usuario elena = new Usuario("elena55", "1111", "13");
-
-        Biblioteca biblioteca = new Biblioteca(0, 0, arrayUsuarios, arrayLibros, 0, arrayLibrosPrestados);
+        // Prestamos
+        Prestamo[] arrayPrestamos = new Prestamo[15];
+        Biblioteca biblioteca = new Biblioteca(0, 0, arrayUsuarios, arrayLibros, 0, arrayPrestamos);
 
         // Libro
         // Libro don_Quijote = new Libro("Don_Quijote", "Miguel de Cervantes",
@@ -137,6 +137,8 @@ public class App {
         // "Drama psicológico");
         // Libro mil_novecientos_ochenta_y_cuatro = new Libro("1984", "George Orwell",
         // "Ciencia ficción distópica");
+
+      
 
         biblioteca.agregarUsuario(daniel);
 
@@ -245,9 +247,8 @@ public class App {
                                 System.out.println("Has elegido eliminar libros");
                                 System.out.println("Introduce un isbn para eliminar un libro");
                                 sc.nextLine(); // limpiar buffer
-                                int isbnAeliminar= sc.nextInt();
-                               biblioteca.eliminarLibro(isbnAeliminar);
-
+                                int isbnAeliminar = sc.nextInt();
+                                biblioteca.eliminarLibro(isbnAeliminar);
 
                                 break;
                             case 3:
@@ -307,14 +308,49 @@ public class App {
                         switch (opcion) {
                             case 1:
                                 System.out.println("Has elegido realizar prestamo de libro ");
+                                System.out.println("Introduce el isbn del libro que quieres tomar prestado ");
+                                sc.nextLine(); // limpiar el buffer
+                                int isbnPrestamo = sc.nextInt();
+                                Prestamo a = new Prestamo(null, null);
+                                a = biblioteca.tomarLibroPrestado(sesionUsuario, isbnPrestamo);
+
+                                if (a == null) {
+                                    System.out.println("Error");
+                                } else {
+                                    
+                                     arrayPrestamos = biblioteca.getArrayPrestamos();
+                                    int numPrestamos = biblioteca.getNumPrestamos();
+
+                                    if (numPrestamos < arrayPrestamos.length) {
+                                        arrayPrestamos[numPrestamos] = a;
+                                        biblioteca.setNumPrestamos(numPrestamos + 1);
+                                    } else {
+                                        System.out.println("Error: No hay más espacio para registrar préstamos.");
+                                    }
+
+                                    biblioteca.setArrayPrestamos(arrayPrestamos);
+
+
+
+                                }
 
                                 break;
                             case 2:
                                 System.out.println("Has elegido devolver libros prestados ");
+                                System.out.println("Introduce el isbn del libro que quieres devolver ");
+                                sc.nextLine(); // limpiar el buffer
+                                int isbnDevolver = sc.nextInt();
+                                  biblioteca.devolverLibroTomado(sesionUsuario, isbnDevolver
+                                      
+                                        );
+
+                             
 
                                 break;
                             case 3:
                                 System.out.println("Has elegido mostrar libros actualmente prestados ");
+                                biblioteca.mostrarLibrosActualmentePrestados();
+
                                 break;
 
                             default:

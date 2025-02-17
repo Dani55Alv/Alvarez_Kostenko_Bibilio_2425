@@ -4,18 +4,18 @@ public class Biblioteca {
     private int numUsuarios;
     private Usuario[] arrayUsuarios;
     private Libro[] arrayLibros;
-    private Libro[] arraylibrosPrestados;
-    private int nLibrosPrestados;
+    private Prestamo[] arrayPrestamos;
+    private int numPrestamos;
 
     /* constructor */
     public Biblioteca(int numLibros, int numUsuarios, Usuario[] arrayUsuarios, Libro[] arrayLibros,
-            int nLibrosPrestados, Libro[] arraylibrosPrestados) {
+            int numPrestamos, Prestamo[] arrayPrestamos) {
         this.numLibros = numLibros;
         this.numUsuarios = numUsuarios;
         this.arrayUsuarios = arrayUsuarios;
         this.arrayLibros = arrayLibros;
-        this.arraylibrosPrestados = arraylibrosPrestados;
-        this.nLibrosPrestados = nLibrosPrestados;
+        this.arrayPrestamos = arrayPrestamos;
+        this.numPrestamos = numPrestamos;
     }
 
     public int getNumLibros() {
@@ -50,35 +50,18 @@ public class Biblioteca {
         this.arrayLibros = arrayLibros;
     }
 
-    private boolean checkeadorArraysUsuarios(String nombreUsuario) {
-        boolean noExiste = true;
-        for (int i = 0; i < this.arrayUsuarios.length && noExiste; i++) {
-            if (arrayUsuarios[i].getNombreUsuario().equals(nombreUsuario)) {
-                noExiste = false;
-
-            }
-        }
-
-        return noExiste;
+    public Prestamo[] getArrayPrestamos() {
+        return arrayPrestamos;
     }
 
-    private boolean checkeadorArraysLibrosPrestados(int isbn) {
-        boolean noExiste = true;
-        for (int i = 0; i < this.arraylibrosPrestados.length && noExiste; i++) {
-            if (arraylibrosPrestados[i].getIsbn() == (isbn)) {
-                noExiste = false;
-
-            }
-        }
-
-        return noExiste;
-
+    public int getNumPrestamos() {
+        return numPrestamos;
     }
 
     private boolean checkeadorArraysLibros(int isbn) {
         boolean noExiste = true;
-        for (int i = 0; i < this.arrayLibros.length && noExiste; i++) {
-            if (arrayLibros[i] != null && arrayLibros[i].getIsbn() == (isbn)) {
+        for (int i = 0; i < numLibros && noExiste; i++) {
+            if (arrayLibros[i].getIsbn() == (isbn)) {
                 noExiste = false;
 
             }
@@ -103,6 +86,7 @@ public class Biblioteca {
         Usuario usuario = new Usuario(null, null, null);
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setContrasenia(contrasenia);
+        usuario.setDni(dni);
 
         agregarUsuario(usuario);
     }
@@ -207,4 +191,122 @@ public class Biblioteca {
         }
 
     }
+
+    public Prestamo tomarLibroPrestado(Usuario usuario, int isbn) {
+
+        System.out.println(
+                "La biblioteca procede a prestar el libro con isbn " + isbn + " al usuario "
+                        + usuario.getNombreUsuario());
+
+        boolean noExiste = checkeadorArraysLibros(isbn);
+
+        if (noExiste == true) {
+            System.out.println("ERROR: El libro con isbn: " + isbn + " no existe");
+            return null;
+
+        } else {
+            System.out.println("Prestamo realizado con exito");
+            Libro libroDetectado = null;
+
+            boolean encontrado = true;
+
+            for (int i = 0; i < getNumLibros() && encontrado; i++) {
+                if (arrayLibros[i].getIsbn() == (isbn)) {
+                    libroDetectado = arrayLibros[i];
+                    encontrado = false;
+                    arrayLibros[i] = null;
+
+                    for (int j = i; j < numLibros - 1; j++) {
+                        arrayLibros[j] = arrayLibros[j + 1];
+                    }
+
+                    setNumLibros(getNumLibros() - 1);
+                }
+            }
+            Prestamo prestamos = new Prestamo(usuario, libroDetectado);
+            return prestamos;
+
+        }
+
+    }
+
+    public void devolverLibroTomado(Usuario usuario, int isbn) {
+        Libro libroDetectado = null;
+
+        System.out.println(
+                "El usuario " + usuario.getNombreUsuario() + " procede a devolver el libro con isbn " + isbn
+                        + " a la biblioteca ");
+
+        boolean noExiste = true;
+
+        for (int i = 0; i < this.numPrestamos; i++) {
+            if (this.arrayPrestamos[i].getLibro().getIsbn() == isbn) {
+                noExiste = false;
+            }
+
+            if (!arrayPrestamos[i].getUsuario().getNombreUsuario().equals(usuario.getNombreUsuario())) {
+                noExiste = true;
+
+            }
+
+        }
+
+        if (!noExiste) {
+
+            System.out.println("Devolución realizado con exito");
+            boolean encontrado = true;
+            for (int i = 0; i < numPrestamos && encontrado; i++) {
+                if (arrayPrestamos[i].getLibro().getIsbn() == isbn) {
+
+                    libroDetectado = arrayPrestamos[i].getLibro();
+
+                    encontrado = false;
+
+                    arrayPrestamos[i] = arrayPrestamos[numPrestamos - 1];
+                    arrayPrestamos[numPrestamos - 1] = null;
+
+                    setNumPrestamos(getNumPrestamos() - 1);
+                }
+            }
+
+            if (this.numLibros < this.arrayLibros.length) {
+                this.arrayLibros[numLibros] = libroDetectado;
+                this.numLibros++;
+
+            } else {
+                System.out.println("No caben mas libros (Está lleno la biblioteca de libros)");
+
+            }
+
+        } else {
+
+            System.out.println("ERROR: el libro con isbn " + isbn + " no existe");
+
+        }
+
+    }
+
+    public void mostrarLibrosActualmentePrestados() {
+        boolean noExiste = true;
+        for (int i = 0; i < numPrestamos; i++) {
+            noExiste = false;
+            System.out.println("El libro prestado " + arrayPrestamos[i].getLibro().getTitulo()
+                    + " esta tomado por el usuario " + arrayPrestamos[i].getUsuario().getNombreUsuario() + " con isbn: "
+                    + arrayPrestamos[i]
+                            .getLibro().getIsbn());
+        }
+
+        if (noExiste) {
+            System.out.println("No hay prestamos que mostrar es decir, no hay prestamos activos");
+        }
+    }
+
+    public void setArrayPrestamos(Prestamo[] arrayPrestamos) {
+        this.arrayPrestamos = arrayPrestamos;
+    }
+
+    public void setNumPrestamos(int numPrestamos) {
+        this.numPrestamos = numPrestamos;
+    }
+
 }
