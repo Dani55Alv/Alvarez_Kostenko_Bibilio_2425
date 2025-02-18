@@ -1,5 +1,14 @@
 import java.util.Scanner;
 
+/**
+ * Es la clase principal donde se desarrolla el programa bibiblioteca.
+ * 
+ * @author Daniel Alvarez Morales
+ * @version 1.0
+ * @since 2025
+ * 
+ */
+
 public class App {
 
     public static void login() {

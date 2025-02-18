@@ -1,4 +1,14 @@
 
+/**
+ * Es la clase donde se almacena las caracteristicas de la biblioteca propia es
+ * decir, Prestamos propios, libros propios , usuarios propios y demás.
+ * 
+ * @author Elena Kostenko
+ * @version 1.0
+ * @since 2025
+ * 
+ */
+
 public class Biblioteca {
     private int numLibros;
     private int numUsuarios;
@@ -8,7 +18,6 @@ public class Biblioteca {
     private int numPrestamos;
     private Estadistica estadisticas;
 
-    /* constructor */
     public Biblioteca(int numLibros, int numUsuarios, Usuario[] arrayUsuarios, Libro[] arrayLibros,
             int numPrestamos, Prestamo[] arrayPrestamos, Estadistica estadisticas) {
         this.numLibros = numLibros;
@@ -20,46 +29,102 @@ public class Biblioteca {
         this.estadisticas = estadisticas;
     }
 
+    /**
+     * Obtiene el número total de libros.
+     * 
+     * @return El número de libros.
+     */
     public int getNumLibros() {
         return numLibros;
     }
 
+    /**
+     * Establece el número total de libros.
+     * 
+     * @param numLibros El nuevo número de libros.
+     */
     public void setNumLibros(int numLibros) {
         this.numLibros = numLibros;
     }
 
+    /**
+     * Obtiene el número total de usuarios.
+     * 
+     * @return El número de usuarios.
+     */
     public int getNumUsuarios() {
         return numUsuarios;
     }
 
+    /**
+     * Establece el número total de usuarios.
+     * 
+     * @param numUsuarios El nuevo número de usuarios.
+     */
     public void setNumUsuarios(int numUsuarios) {
         this.numUsuarios = numUsuarios;
     }
 
+    /**
+     * Obtiene el arreglo de usuarios registrados.
+     * 
+     * @return Un array de objetos {@code Usuario}.
+     */
     public Usuario[] getArrayUsuarios() {
         return arrayUsuarios;
     }
 
+    /**
+     * Establece el arreglo de usuarios registrados.
+     * 
+     * @param arrayUsuarios Un array de objetos {@code Usuario}.
+     */
     public void setArrayUsuarios(Usuario[] arrayUsuarios) {
         this.arrayUsuarios = arrayUsuarios;
     }
 
+    /**
+     * Obtiene el arreglo de libros disponibles.
+     * 
+     * @return Un array de objetos {@code Libro}.
+     */
     public Libro[] getArrayLibros() {
         return arrayLibros;
     }
 
+    /**
+     * Establece el arreglo de libros disponibles.
+     * 
+     * @param arrayLibros Un array de objetos {@code Libro}.
+     */
     public void setArrayLibros(Libro[] arrayLibros) {
         this.arrayLibros = arrayLibros;
     }
 
+    /**
+     * Obtiene el arreglo de préstamos registrados.
+     * 
+     * @return Un array de objetos {@code Prestamo}.
+     */
     public Prestamo[] getArrayPrestamos() {
         return arrayPrestamos;
     }
 
+    /**
+     * Obtiene el número total de préstamos realizados.
+     * 
+     * @return El número de préstamos.
+     */
     public int getNumPrestamos() {
         return numPrestamos;
     }
 
+    /**
+     * Es una funcion que Chekea un array para dectetar si el libro existe.
+     * 
+     * @param isbn (int), el isbn del libro.
+     * @return El boleano que confirma la exitencia del libro con tal isbn.
+     */
     private boolean checkeadorArraysLibros(int isbn) {
         boolean noExiste = true;
         for (int i = 0; i < numLibros && noExiste; i++) {
@@ -73,27 +138,29 @@ public class Biblioteca {
 
     }
 
-    public void registrarNuevoUsuario(Usuario usuario) {
-
-        if (numUsuarios < this.arrayUsuarios.length) {
-            this.arrayUsuarios[numUsuarios] = usuario;
-            numUsuarios++;
-        } else {
-            System.out.println("No caben mas usuarios (Está lleno la biblioteca de usuarios)");
-        }
-
-    }
-
-    public void registrarUsuario(String nombreUsuario, String dni, String contrasenia, boolean admind) {
+    /**
+     * Es un metodo para registrar nuevos usuarios .
+     * 
+     * @param nombreUsuario (String), el nombre del usuario a registrar .
+     * @param dni           (String), el dni del usuario a registrar .
+     * @param contrasenia   (String), la contrasenia del usuario a registrar .
+     * @param admin         (boolean), el estado de persmisos admin del usuario a
+     *                      registrar .
+     */
+    public void registrarUsuario(String nombreUsuario, String dni, String contrasenia, boolean admin) {
         Usuario usuario = new Usuario(null, null, null, false);
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setContrasenia(contrasenia);
         usuario.setDni(dni);
-        usuario.setAdmin(admind);
+        usuario.setAdmin(admin);
         agregarUsuario(usuario);
 
     }
 
+    /**
+     * Es un metodo para ver la informacion de los usuarios .
+     * 
+     */
     public void mostrarInfUsuarioRegistrado() {
         boolean noExiste = true;
         for (int i = 0; i < getNumUsuarios(); i++) {
@@ -115,6 +182,11 @@ public class Biblioteca {
         }
     }
 
+    /**
+     * Es un metodo para agregar usuarios a la biblioteca .
+     * 
+     * @param usuario (Usuario), El usuario ha agregar.
+     */
     public void agregarUsuario(Usuario usuario) {
 
         if (numUsuarios < this.arrayUsuarios.length) {
@@ -126,6 +198,13 @@ public class Biblioteca {
 
     }
 
+    /**
+     * Es un metodo para agregar libros nuevos a la biblioteca .
+     * 
+     * @param titulo    (String), El titulo del libro.
+     * @param autor     (String), El autor del libro.
+     * @param categoria (String), La categoria del libro.
+     */
     public void AgregarLibroNuevo(String titulo, String autor, String categoria) {
         Libro libro = new Libro(titulo, autor, categoria);
         libro.setAutor(autor);
@@ -140,6 +219,10 @@ public class Biblioteca {
 
     }
 
+    /**
+     * Es un metodo para mostrar libros disponibles en la biblioteca.
+     *
+     */
     public void mostrarLibrosDisponibles() {
         boolean noExiste = true;
         for (int i = 0; i < getNumLibros(); i++) {
@@ -155,6 +238,11 @@ public class Biblioteca {
         }
     }
 
+    /**
+     * Es un metodo para bucar libros por isbn en la biblioteca.
+     * 
+     * @param isbn_introducido (int), el isbn del libro a busar.
+     */
     public void buscarlibro(int isbn_introducido) {
         boolean noExiste = checkeadorArraysLibros(isbn_introducido);
 
@@ -172,6 +260,11 @@ public class Biblioteca {
         }
     }
 
+    /**
+     * Es un metodo para eliminar libros por isbn en la biblioteca.
+     * 
+     * @param isbn (int), el isbn del libro a eliminar.
+     */
     public void eliminarLibro(int isbn) {
         boolean noExiste = checkeadorArraysLibros(isbn);
         if (noExiste == true) {
@@ -202,6 +295,17 @@ public class Biblioteca {
 
     }
 
+    /**
+     * Es una funcion que crear prestamos usuario x libro y lo devuevlve a un array
+     * de prestamos,
+     * si es null porque es una operacion imposible de realizar no se llegar a meter
+     * null en el array.
+     * 
+     * @param isbn    (int), el isbn del libro a tomar prestado.
+     * @param usuario (Usuario), el usuario que en ese momento tiene iniciado
+     *                sesion.
+     * @return devuelve el prestamo que representa el usuario por el libro.
+     */
     public Prestamo tomarLibroPrestado(Usuario usuario, int isbn) {
 
         System.out.println(
@@ -249,6 +353,14 @@ public class Biblioteca {
 
     }
 
+    /**
+     * Es un metodo que devuelve libros prestados por isbn.
+     * 
+     * @param usuario (Usuario), el isbn del libro a tomar prestado.
+     * @param usuario (Usuario), el usuario que en ese momento tiene iniciado
+     *                sesion.
+     * 
+     */
     public void devolverLibroTomado(Usuario usuario, int isbn) {
         Libro libroDetectado = null;
 
@@ -308,6 +420,11 @@ public class Biblioteca {
 
     }
 
+    /**
+     * Es un metodo que muestra los libros prestados y los usuarios que lo tienen
+     * tomado actualmente.
+     * 
+     */
     public void mostrarLibrosActualmentePrestados() {
         boolean noExiste = true;
         for (int i = 0; i < numPrestamos; i++) {
@@ -323,14 +440,28 @@ public class Biblioteca {
         }
     }
 
+    /**
+     * Establece el arreglo de préstamos asociados al usuario.
+     *
+     * @param arrayPrestamos el arreglo de objetos `Prestamo` a establecer.
+     */
     public void setArrayPrestamos(Prestamo[] arrayPrestamos) {
         this.arrayPrestamos = arrayPrestamos;
     }
 
+    /**
+     * Establece el número de préstamos realizados por el usuario.
+     *
+     * @param numPrestamos el número de préstamos a establecer.
+     */
     public void setNumPrestamos(int numPrestamos) {
         this.numPrestamos = numPrestamos;
     }
 
+    /**
+     * Es un metodo que muestra las estadisticas de prestamos activos y totales.
+     * 
+     */
     public void mostrarNPTyA() {
 
         System.out.println("Número de  préstamos activos: " + estadisticas.getnPrestamosActivos());
@@ -338,6 +469,11 @@ public class Biblioteca {
 
     }
 
+    /**
+     * Es un metodo que muestra el usuario con mas libros. Si hay empate es
+     * indiferente.
+     * 
+     */
     public void mostrarUsuarioMasPrestamoActivo() {
         int usuarioMax = 0;
         usuarioMax = arrayUsuarios[0].getContadoPrestamosActivos();
@@ -350,10 +486,16 @@ public class Biblioteca {
             }
 
         }
+
         System.out.println("El usuario con mas prestamos activos es " + nombreUsuario
                 + " con un numero de prestamos activos de " + usuarioMax);
     }
 
+    /**
+     * Es un metodo que muestra una lista de los libros prestados y su numero de
+     * prestamos.
+     * 
+     */
     public void listarLibrosPrestados() {
 
         System.out.println("Libros listados por prestamo de orden descendente");
