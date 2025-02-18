@@ -499,7 +499,7 @@ public class Biblioteca {
      */
     public void listarLibrosPrestados() {
 
-        System.out.println("Libros listados por prestamo de orden descendente");
+        System.out.println("Libros listados");
         boolean noExiste = true;
 
         for (int i = 0; i < numLibros; i++) {
