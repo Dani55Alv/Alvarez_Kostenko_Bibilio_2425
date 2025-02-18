@@ -126,7 +126,8 @@ public class App {
         // Usuario elena = new Usuario("elena55", "1111", "13");
         // Prestamos
         Prestamo[] arrayPrestamos = new Prestamo[15];
-        Biblioteca biblioteca = new Biblioteca(0, 0, arrayUsuarios, arrayLibros, 0, arrayPrestamos);
+        Estadistica estadistica = new Estadistica(0, 0);
+        Biblioteca biblioteca = new Biblioteca(0, 0, arrayUsuarios, arrayLibros, 0, arrayPrestamos, estadistica);
 
         // Libro
         // Libro don_Quijote = new Libro("Don_Quijote", "Miguel de Cervantes",
@@ -137,8 +138,6 @@ public class App {
         // "Drama psicológico");
         // Libro mil_novecientos_ochenta_y_cuatro = new Libro("1984", "George Orwell",
         // "Ciencia ficción distópica");
-
-      
 
         biblioteca.agregarUsuario(daniel);
 
@@ -317,8 +316,8 @@ public class App {
                                 if (a == null) {
                                     System.out.println("Error");
                                 } else {
-                                    
-                                     arrayPrestamos = biblioteca.getArrayPrestamos();
+
+                                    arrayPrestamos = biblioteca.getArrayPrestamos();
                                     int numPrestamos = biblioteca.getNumPrestamos();
 
                                     if (numPrestamos < arrayPrestamos.length) {
@@ -330,8 +329,6 @@ public class App {
 
                                     biblioteca.setArrayPrestamos(arrayPrestamos);
 
-
-
                                 }
 
                                 break;
@@ -340,11 +337,9 @@ public class App {
                                 System.out.println("Introduce el isbn del libro que quieres devolver ");
                                 sc.nextLine(); // limpiar el buffer
                                 int isbnDevolver = sc.nextInt();
-                                  biblioteca.devolverLibroTomado(sesionUsuario, isbnDevolver
-                                      
-                                        );
+                                biblioteca.devolverLibroTomado(sesionUsuario, isbnDevolver
 
-                             
+                                );
 
                                 break;
                             case 3:
@@ -365,14 +360,16 @@ public class App {
                         switch (opcion) {
                             case 1:
                                 System.out.println("Has elegido numeros de prestamos totales y activos");
+                                biblioteca.mostrarNPTyA();
 
                                 break;
                             case 2:
                                 System.out.println("Has elegido listar los libros mas prestados ");
-
+                                           biblioteca.listarLibrosPrestados();
                                 break;
                             case 3:
                                 System.out.println("Has elegido mostrar que usuario tiene más préstamos activos");
+                                biblioteca.mostrarUsuarioMasPrestamoActivo();
 
                                 break;
                             default:

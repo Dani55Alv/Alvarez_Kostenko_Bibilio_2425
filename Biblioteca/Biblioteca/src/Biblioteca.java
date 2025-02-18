@@ -6,16 +6,18 @@ public class Biblioteca {
     private Libro[] arrayLibros;
     private Prestamo[] arrayPrestamos;
     private int numPrestamos;
+    private Estadistica estadisticas;
 
     /* constructor */
     public Biblioteca(int numLibros, int numUsuarios, Usuario[] arrayUsuarios, Libro[] arrayLibros,
-            int numPrestamos, Prestamo[] arrayPrestamos) {
+            int numPrestamos, Prestamo[] arrayPrestamos, Estadistica estadisticas) {
         this.numLibros = numLibros;
         this.numUsuarios = numUsuarios;
         this.arrayUsuarios = arrayUsuarios;
         this.arrayLibros = arrayLibros;
         this.arrayPrestamos = arrayPrestamos;
         this.numPrestamos = numPrestamos;
+        this.estadisticas = estadisticas;
     }
 
     public int getNumLibros() {
@@ -206,6 +208,12 @@ public class Biblioteca {
 
         } else {
             System.out.println("Prestamo realizado con exito");
+
+            estadisticas.setnPrestamosTotales(estadisticas.getnPrestamosTotales() + 1);
+            estadisticas.setnPrestamosActivos(estadisticas.getnPrestamosActivos() + 1);
+
+            usuario.setContadoPrestamosActivos(usuario.getContadoPrestamosActivos() + 1);
+
             Libro libroDetectado = null;
 
             boolean encontrado = true;
@@ -223,6 +231,9 @@ public class Biblioteca {
                     setNumLibros(getNumLibros() - 1);
                 }
             }
+
+            libroDetectado.getContadorLibrosPrestados();
+            libroDetectado.setContadorLibrosPrestados(libroDetectado.getContadorLibrosPrestados() + 1);
             Prestamo prestamos = new Prestamo(usuario, libroDetectado);
             return prestamos;
 
@@ -254,6 +265,9 @@ public class Biblioteca {
         if (!noExiste) {
 
             System.out.println("Devolución realizado con exito");
+            estadisticas.setnPrestamosActivos(estadisticas.getnPrestamosActivos() - 1);
+            usuario.setContadoPrestamosActivos(usuario.getContadoPrestamosActivos() - 1);
+
             boolean encontrado = true;
             for (int i = 0; i < numPrestamos && encontrado; i++) {
                 if (arrayPrestamos[i].getLibro().getIsbn() == isbn) {
@@ -309,4 +323,54 @@ public class Biblioteca {
         this.numPrestamos = numPrestamos;
     }
 
+    public void mostrarNPTyA() {
+
+        System.out.println("Número de  préstamos activos: " + estadisticas.getnPrestamosActivos());
+        System.out.println("Número de préstamos totales: " + estadisticas.getnPrestamosTotales());
+
+    }
+
+    public void mostrarUsuarioMasPrestamoActivo() {
+        int usuarioMax = 0;
+        usuarioMax = arrayUsuarios[0].getContadoPrestamosActivos();
+        String nombreUsuario = arrayUsuarios[0].getNombreUsuario();
+        for (int i = 0; i < numUsuarios; i++) {
+
+            if (usuarioMax < arrayUsuarios[i].getContadoPrestamosActivos()) {
+                usuarioMax = arrayUsuarios[i].getContadoPrestamosActivos();
+                nombreUsuario = arrayUsuarios[i].getNombreUsuario();
+            }
+
+        }
+        System.out.println("El usuario con mas prestamos activos es " + nombreUsuario
+                + " con un numero de prestamos activos de " + usuarioMax);
+    }
+
+    public void listarLibrosPrestados() {
+
+        System.out.println("Libros listados por prestamo de orden descendente");
+        boolean noExiste = true;
+
+        for (int i = 0; i < numLibros; i++) {
+            noExiste = false;
+        }
+
+        if (noExiste) {
+            System.out.println("Listando libros mas prestados");
+        } else {
+
+            for (int i = 0; i < numLibros; i++) {
+                System.out.println(
+                        arrayLibros[i].getTitulo() + " Nº Prestamos: " + arrayLibros[i].getContadorLibrosPrestados());
+            }
+
+            for (int i = 0; i < numPrestamos; i++) {
+                System.out.println(
+                        arrayPrestamos[i].getLibro().getTitulo() + " Nº Prestamos: "
+                                + arrayPrestamos[i].getLibro().getContadorLibrosPrestados());
+            }
+
+        }
+
+    }
 }

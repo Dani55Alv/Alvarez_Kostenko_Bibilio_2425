@@ -12,10 +12,18 @@ public class Usuario {
     private String nombreUsuario;
     private String contrasenia;
     private String dni;
+    private int contadoPrestamosActivos;
     public Usuario(String nombreUsuario, String contrasenia, String dni) {
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.dni = dni;
+        this.contadoPrestamosActivos=0;
+    }
+    public int getContadoPrestamosActivos() {
+        return contadoPrestamosActivos;
+    }
+    public void setContadoPrestamosActivos(int contadoPrestamosActivos) {
+        this.contadoPrestamosActivos = contadoPrestamosActivos;
     }
     public String getNombreUsuario() {
         return nombreUsuario;

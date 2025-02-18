@@ -15,14 +15,23 @@ public class Libro {
     private String categoria;
     private int isbn;
     private static int contadorIsbn;
-
+    private int contadorLibrosPrestados;
     public Libro(String titulo, String autor, String categoria) {
         this.titulo = titulo;
         this.autor = autor;
         this.categoria = categoria;
         this.isbn = contadorIsbn;
         contadorIsbn++;
+        this.contadorLibrosPrestados = 0;
 
+    }
+
+    public int getContadorLibrosPrestados() {
+        return contadorLibrosPrestados;
+    }
+
+    public void setContadorLibrosPrestados(int contadorLibrosPrestados) {
+        this.contadorLibrosPrestados = contadorLibrosPrestados;
     }
 
     public String getTitulo() {
