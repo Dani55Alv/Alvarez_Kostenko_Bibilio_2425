@@ -84,13 +84,14 @@ public class Biblioteca {
 
     }
 
-    public void registrarUsuario(String nombreUsuario, String dni, String contrasenia) {
-        Usuario usuario = new Usuario(null, null, null);
+    public void registrarUsuario(String nombreUsuario, String dni, String contrasenia, boolean admind) {
+        Usuario usuario = new Usuario(null, null, null, false);
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setContrasenia(contrasenia);
         usuario.setDni(dni);
-
+        usuario.setAdmin(admind);
         agregarUsuario(usuario);
+
     }
 
     public void mostrarInfUsuarioRegistrado() {
@@ -98,8 +99,15 @@ public class Biblioteca {
         for (int i = 0; i < getNumUsuarios(); i++) {
             arrayUsuarios[i].getDni();
             noExiste = false;
-            System.out.println("El usuario con nombre " + arrayUsuarios[i].getNombreUsuario() + " y el dni "
+            System.out.print("El usuario con nombre " + arrayUsuarios[i].getNombreUsuario() + " y el dni "
                     + arrayUsuarios[i].getDni() + " tiene la contraseña " + arrayUsuarios[i].getContrasenia());
+
+            if (arrayUsuarios[i].getAdmin() == true) {
+                System.out.println(" (Es admin) ");
+            } else {
+                System.out.println(" (NO es admin) ");
+            }
+            System.out.println();
 
         }
         if (noExiste) {

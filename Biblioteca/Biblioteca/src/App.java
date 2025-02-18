@@ -13,7 +13,7 @@ public class App {
         System.out.println("-------------------------------------------------");
         System.out.println("|                   Log-in                      |");
         System.out.println("|                                               |");
-        System.out.println("|           ¿Usuario  o Administrador?          |");
+        System.out.println("|         Nombre de usuario y contraseña        |");
         System.out.println("|                                               |");
         System.out.println("|                                               |");
         System.out.println("-------------------------------------------------");
@@ -122,7 +122,7 @@ public class App {
 
         // Usuarios
         Usuario[] arrayUsuarios = new Usuario[15];
-        Usuario daniel = new Usuario("dani55", "1234", "12345678H");
+        Usuario daniel = new Usuario("dani55", "1234", "12345678H", true);
         // Usuario elena = new Usuario("elena55", "1111", "13");
         // Prestamos
         Prestamo[] arrayPrestamos = new Prestamo[15];
@@ -151,31 +151,6 @@ public class App {
             Scanner sc = new Scanner(System.in);
             sesionUsuario = null;
 
-            boolean logInIncorrecto = true;
-
-            do {
-                String logIn = sc.nextLine().toLowerCase();
-
-                switch (logIn) {
-                    case "usuario":
-                        logInIncorrecto = false;
-                        System.out.println("Vas a iniciar sesión como usuario");
-
-                        break;
-                    case "administrador":
-                        logInIncorrecto = false;
-                        System.out.println("Vas a iniciar sesión como administrador");
-
-                        break;
-                    default:
-                        System.out.println("No permitido, intentalo otra vez");
-                        System.out.println("Tienes que introducir usuario o administrador");
-
-                        break;
-                }
-            } while (logInIncorrecto);
-
-            // No se crean usuarios nuevos sino que se inician ya existentes por ahora
             int posPassword = -1;
             boolean usuarioNoEcontrado;
             boolean contraseniaIncorrecta;
@@ -201,12 +176,11 @@ public class App {
                 if (!usuarioNoEcontrado) {
                     System.out.println("Usuario " + nameUser + " encontrado con éxito");
 
-                    // IMporatnate //Quizas borrar.
-                    // Asignamos el préstamo al usuario que acaba de iniciar sesión
                     sesionUsuario = biblioteca.getArrayUsuarios()[posPassword];
 
                     if (biblioteca.getArrayUsuarios()[posPassword].getContrasenia().equals(passwordUser)) {
                         contraseniaIncorrecta = false;
+
                         System.out.println("Contraseña correcta, inicio de sesión exitoso.");
                     } else {
                         System.out.println("Contraseña incorrecta, intentalo otra vez.");
@@ -230,25 +204,33 @@ public class App {
                         opcion = sc.nextInt();
                         switch (opcion) {
                             case 1:
+                                if (sesionUsuario.getAdmin() == true) {
 
-                                System.out.println("Has elegido Agregar libros");
-                                sc.nextLine(); // limpiar buffer
-                                System.out.println("Introduce título a registrar");
-                                String titulo = sc.nextLine();
-                                System.out.println("Introduce autor a registrar");
-                                String autor = sc.nextLine();
-                                System.out.println("Introduce categoría a registrar");
-                                String categoria = sc.nextLine();
-                                biblioteca.AgregarLibroNuevo(titulo, autor, categoria);
+                                    System.out.println("Has elegido Agregar libros");
+                                    sc.nextLine(); // limpiar buffer
+                                    System.out.println("Introduce título a registrar");
+                                    String titulo = sc.nextLine();
+                                    System.out.println("Introduce autor a registrar");
+                                    String autor = sc.nextLine();
+                                    System.out.println("Introduce categoría a registrar");
+                                    String categoria = sc.nextLine();
+                                    biblioteca.AgregarLibroNuevo(titulo, autor, categoria);
+                                } else {
 
+                                    System.out.println("Denegado, esta opcion es solo para admins");
+                                }
                                 break;
                             case 2:
-                                System.out.println("Has elegido eliminar libros");
-                                System.out.println("Introduce un isbn para eliminar un libro");
-                                sc.nextLine(); // limpiar buffer
-                                int isbnAeliminar = sc.nextInt();
-                                biblioteca.eliminarLibro(isbnAeliminar);
 
+                                if (sesionUsuario.getAdmin() == true) {
+                                    System.out.println("Has elegido eliminar libros");
+                                    System.out.println("Introduce un isbn para eliminar un libro");
+                                    sc.nextLine(); // limpiar buffer
+                                    int isbnAeliminar = sc.nextInt();
+                                    biblioteca.eliminarLibro(isbnAeliminar);
+                                } else {
+                                    System.out.println("Denegado, esta opcion es solo para admins");
+                                }
                                 break;
                             case 3:
                                 System.out.println("Has elegido buscar libro por isbn ");
@@ -270,27 +252,55 @@ public class App {
                     case 2:
                         System.out.println("Has elegido gestion de usuarios");
                         submenu2();
+
                         opcion = sc.nextInt();
 
                         switch (opcion) {
                             case 1:
-                                System.out.println("Has elegido registrar nuevo usuario ");
+                                if (sesionUsuario.getAdmin() == true) {
 
-                                System.out.println("Has elegido registrar nuevo usuario ");
-                                System.out.println("Introduce el nombre de usuario a registrar");
-                                sc.nextLine(); // limpiar el buffer
-                                String nombreUsuario = sc.nextLine();
-                                System.out.println("Introduce el dni de usuario a registrar");
-                                String dni = sc.nextLine();
-                                System.out.println("Introduce la contraseña de usuario a registrar");
-                                String contrasenia = sc.nextLine();
-                                biblioteca.registrarUsuario(nombreUsuario, dni, contrasenia);
+                                    System.out.println("Has elegido registrar nuevo usuario ");
 
+                                    System.out.println("Has elegido registrar nuevo usuario ");
+                                    System.out.println("Introduce el nombre de usuario a registrar");
+                                    sc.nextLine(); // limpiar el buffer
+                                    String nombreUsuario = sc.nextLine();
+                                    System.out.println("Introduce el dni de usuario a registrar");
+                                    String dni = sc.nextLine();
+                                    System.out.println("Introduce la contraseña de usuario a registrar");
+                                    String contrasenia = sc.nextLine();
+                                    System.out.println(
+                                            "Introduce si o no dependiendo de  que si quieres que el usuario a registrar tenga permisos de administrador");
+
+                                    boolean admin = false;
+                                    String decisionAdmin = sc.nextLine().toLowerCase();
+
+                                    if (decisionAdmin.equals("si")) {
+                                        admin = true;
+                                        System.out.println("Se le ha asignado como administrador");
+                                    } else {
+                                        admin = false;
+                                        System.out.println("Se le ha asignado como un usuario normal");
+
+                                    }
+
+                                    biblioteca.registrarUsuario(nombreUsuario, dni, contrasenia, admin);
+                                } else {
+
+                                    System.out.println("Denegado, esta opcion es solo para admins");
+
+                                }
                                 break;
                             case 2:
-                                System.out.println("Has elegido consultar informacion de usuarios registrados ");
-                                biblioteca.mostrarInfUsuarioRegistrado();
+                                if (sesionUsuario.getAdmin() == true) {
 
+                                    System.out.println("Has elegido consultar informacion de usuarios registrados ");
+                                    biblioteca.mostrarInfUsuarioRegistrado();
+                                } else {
+                                    System.out.println(
+                                            "Denegado, esta opcion es solo para admins");
+
+                                }
                                 break;
 
                             default:
@@ -343,9 +353,16 @@ public class App {
 
                                 break;
                             case 3:
-                                System.out.println("Has elegido mostrar libros actualmente prestados ");
-                                biblioteca.mostrarLibrosActualmentePrestados();
+                                if (sesionUsuario.getAdmin() == true) {
 
+                                    System.out.println("Has elegido mostrar libros actualmente prestados ");
+
+                                    biblioteca.mostrarLibrosActualmentePrestados();
+                                } else {
+                                    System.out.println(
+                                            "Denegado, esta opcion es solo para admins");
+
+                                }
                                 break;
 
                             default:
@@ -365,7 +382,7 @@ public class App {
                                 break;
                             case 2:
                                 System.out.println("Has elegido listar los libros mas prestados ");
-                                           biblioteca.listarLibrosPrestados();
+                                biblioteca.listarLibrosPrestados();
                                 break;
                             case 3:
                                 System.out.println("Has elegido mostrar que usuario tiene más préstamos activos");

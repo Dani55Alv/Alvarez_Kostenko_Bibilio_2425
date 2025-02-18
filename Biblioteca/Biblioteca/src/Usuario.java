@@ -13,14 +13,22 @@ public class Usuario {
     private String contrasenia;
     private String dni;
     private int contadoPrestamosActivos;
-    public Usuario(String nombreUsuario, String contrasenia, String dni) {
+    private boolean admin;
+    public Usuario(String nombreUsuario, String contrasenia, String dni, boolean admin) {
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.dni = dni;
         this.contadoPrestamosActivos=0;
+        this.admin=admin;
     }
     public int getContadoPrestamosActivos() {
         return contadoPrestamosActivos;
+    }
+    public boolean getAdmin() {
+        return admin;
+    }
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
     public void setContadoPrestamosActivos(int contadoPrestamosActivos) {
         this.contadoPrestamosActivos = contadoPrestamosActivos;
