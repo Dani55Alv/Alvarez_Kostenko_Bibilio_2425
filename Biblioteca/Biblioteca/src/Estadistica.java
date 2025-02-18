@@ -1,4 +1,3 @@
-public class Estadistica {
 /**
  * Es la clase donde se almacena las estadisticas de los prestamos.
  * 
@@ -7,6 +6,8 @@ public class Estadistica {
  * @since 2025
  * 
  */
+public class Estadistica {
+
 
     private int nPrestamosActivos;
     private int nPrestamosTotales;
