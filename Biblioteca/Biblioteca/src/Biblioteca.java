@@ -356,7 +356,7 @@ public class Biblioteca {
     /**
      * Es un metodo que devuelve libros prestados por isbn.
      * 
-     * @param usuario (Usuario), el isbn del libro a tomar prestado.
+     * @param isbn    (int), el isbn del libro a tomar prestado.
      * @param usuario (Usuario), el usuario que en ese momento tiene iniciado
      *                sesion.
      * 
@@ -454,6 +454,7 @@ public class Biblioteca {
      *
      * @param numPrestamos el número de préstamos a establecer.
      */
+
     public void setNumPrestamos(int numPrestamos) {
         this.numPrestamos = numPrestamos;
     }
