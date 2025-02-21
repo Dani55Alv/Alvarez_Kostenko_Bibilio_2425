@@ -373,6 +373,7 @@ public class Biblioteca {
         for (int i = 0; i < this.numPrestamos; i++) {
             if (this.arrayPrestamos[i].getLibro().getIsbn() == isbn) {
                 noExiste = false;
+
             }
 
             if (!arrayPrestamos[i].getUsuario().getNombreUsuario().equals(usuario.getNombreUsuario())) {
@@ -384,6 +385,8 @@ public class Biblioteca {
 
         if (!noExiste) {
 
+            Prestamo cancelacionDevolucion = null;
+
             System.out.println("Devolución realizado con exito");
             estadisticas.setnPrestamosActivos(estadisticas.getnPrestamosActivos() - 1);
             usuario.setContadoPrestamosActivos(usuario.getContadoPrestamosActivos() - 1);
@@ -393,10 +396,12 @@ public class Biblioteca {
                 if (arrayPrestamos[i].getLibro().getIsbn() == isbn) {
 
                     libroDetectado = arrayPrestamos[i].getLibro();
+                    cancelacionDevolucion = arrayPrestamos[i];
 
                     encontrado = false;
 
                     arrayPrestamos[i] = arrayPrestamos[numPrestamos - 1];
+
                     arrayPrestamos[numPrestamos - 1] = null;
 
                     setNumPrestamos(getNumPrestamos() - 1);
@@ -409,6 +414,10 @@ public class Biblioteca {
 
             } else {
                 System.out.println("No caben mas libros (Está lleno la biblioteca de libros)");
+                System.out.println("Cancelamiento de la transacción de libro");
+                this.arrayPrestamos[numPrestamos] = cancelacionDevolucion;
+
+                setNumPrestamos(getNumPrestamos() + 1);
 
             }
 
