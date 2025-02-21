@@ -11,6 +11,10 @@ import java.util.Scanner;
 
 public class App {
 
+    /**
+     * Menu del login (metodo statico main)
+     * 
+     */
     public static void login() {
 
         System.out.println(" _______________________________________________");
@@ -29,6 +33,10 @@ public class App {
 
     }
 
+    /**
+     * Menu principal (metodo statico main)
+     * 
+     */
     public static void menu() {
 
         System.out.println(" _______________________________________________");
@@ -49,6 +57,10 @@ public class App {
 
     }
 
+    /**
+     * Menu gestion de libros (metodo statico main)
+     * 
+     */
     public static void submenu1() {
 
         System.out.println(" _______________________________________________");
@@ -67,6 +79,10 @@ public class App {
 
     }
 
+    /**
+     * Menu gestion de usuarios (metodo statico main)
+     * 
+     */
     public static void submenu2() {
 
         System.out.println(" _______________________________________________");
@@ -85,6 +101,10 @@ public class App {
 
     }
 
+    /**
+     * Menu gestion de prestamos (metodo statico main)
+     * 
+     */
     public static void submenu3() {
 
         System.out.println(" _______________________________________________");
@@ -103,6 +123,11 @@ public class App {
 
     }
 
+    /**
+     * Menu de estadisticas (metodo statico main)
+     * 
+     * 
+     */
     public static void submenu4() {
 
         System.out.println(" _______________________________________________");
@@ -121,13 +146,17 @@ public class App {
 
     }
 
+    /**
+     * Metodo en el que se desarrollara el programa bibiloteca (metodo statico main)
+     * 
+     * 
+     */
     public static void main(String[] args) {
 
         // Creacion de objetos
 
         // Arrays con limite 15
         Libro[] arrayLibros = new Libro[15];
-        Libro[] arrayLibrosPrestados = new Libro[15];
 
         // Usuarios
         Usuario[] arrayUsuarios = new Usuario[15];
@@ -160,6 +189,8 @@ public class App {
             Scanner sc = new Scanner(System.in);
             sesionUsuario = null;
 
+            // posPassword no lo inicializaos a 0 ya que los arrays empiezan a cero.
+
             int posPassword = -1;
             boolean usuarioNoEcontrado;
             boolean contraseniaIncorrecta;
@@ -185,6 +216,7 @@ public class App {
                 if (!usuarioNoEcontrado) {
                     System.out.println("Usuario " + nameUser + " encontrado con éxito");
 
+                    // SesionUsuario indica el usuario que ha iniciado sesion en la biblioteca.
                     sesionUsuario = biblioteca.getArrayUsuarios()[posPassword];
 
                     if (biblioteca.getArrayUsuarios()[posPassword].getContrasenia().equals(passwordUser)) {
@@ -197,6 +229,9 @@ public class App {
                 } else {
                     System.out.println("Usuario " + nameUser + " no encontrado, intentalo otra vez");
                 }
+
+                // Se restablecera si el usuario falla al iniciar sesion tanto si falla en la
+                // contraseña o el nombre.
 
             } while (usuarioNoEcontrado || contraseniaIncorrecta);
 
@@ -404,7 +439,6 @@ public class App {
 
                         break;
 
-
                     case 5:
                         System.out.println("Has elegido: Salir de la cuenta");
 
@@ -432,7 +466,6 @@ public class App {
             }
 
         } while (noVolverIniciarSesion);
-
 
         System.out.println("Has salido del programa");
 
