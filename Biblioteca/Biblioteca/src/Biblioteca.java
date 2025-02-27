@@ -516,8 +516,9 @@ public class Biblioteca {
         }
 
         if (noExiste) {
-            System.out.println("Listando libros mas prestados");
+            System.out.println("No se han detectado libros para listar");
         } else {
+            System.out.println("Listando libros mas prestados");
 
             for (int i = 0; i < numLibros; i++) {
                 System.out.println(

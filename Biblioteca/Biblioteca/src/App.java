@@ -303,7 +303,6 @@ public class App {
                             case 1:
                                 if (sesionUsuario.getAdmin() == true) {
 
-                                    System.out.println("Has elegido registrar nuevo usuario ");
 
                                     System.out.println("Has elegido registrar nuevo usuario ");
                                     System.out.println("Introduce el nombre de usuario a registrar");
@@ -361,7 +360,7 @@ public class App {
                         switch (opcion) {
                             case 1:
                                 System.out.println("Has elegido realizar prestamo de libro ");
-                                System.out.println("Introduce el isbn del libro que quieres tomar prestado ");
+                                System.out.println("Introduce el isbn del libro que quieres tomaSr prestado ");
                                 sc.nextLine(); // limpiar el buffer
                                 int isbnPrestamo = sc.nextInt();
                                 Prestamo a = new Prestamo(null, null);
